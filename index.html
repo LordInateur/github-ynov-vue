@@ -47,13 +47,12 @@
                   {{repo}}
                 </div>
               </div>
-             
             </div>
           </div>
 
           <div class="col-md-9">
             <div class="row">
-              <div class="col-12" v-for="repo in this.computedCommitsList">
+              <div class="col-12" v-for="repo in this.commitsList">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" style="height: 2em" v-if="repo.loading"> 
                 <h2>{{ repo.title }} </h2>
                 <div class="row" v-if="!repo.loading">

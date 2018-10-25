@@ -19,7 +19,7 @@ var app = new Vue({
   },
   data: {
     date: {
-      min : new Date().toJSON().slice(0,10), 
+      min : new Date(new Date().setTime(new Date().getTime() - (15 * 24 * 60 * 60 * 1000))).toJSON().slice(0,10), 
       max : new Date().toJSON().slice(0,10)
     },
     gitusers : [
@@ -125,7 +125,7 @@ var app = new Vue({
               console.log("remove : " + title)
               delete this.commitsList[title]
               // sinon pas moyen de le faire rafraichir
-              this.$forceUpdate();
+              //this.$forceUpdate();
             }
             
           }else{
@@ -178,12 +178,6 @@ var app = new Vue({
         this.display_removeToken = false;
       }
       return this.display_removeToken;
-    },
-    computedCommitsList : function(){
-      return this.commitsList
     }
-  },
-  watch:{
-    commitsList(){console.log("commitsList have change")}
   }
 })
