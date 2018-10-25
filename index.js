@@ -49,12 +49,12 @@ var app = new Vue({
       return document;
     },
     getRepoData : function ( user, repo){
-      // lordToken : f25f2cbf1b820c037516e027339beb37447775a4
+      // lordToken : 2de59a91c8a5f7df2bdcd7-d31c485508878ec4c9
 
       var myImage = document.querySelector('img');
 
       var myHeaders = new Headers();
-      myHeaders.append('Authorization', 'token f25f2cbf1b820c037516e027339beb37447775a4');
+      myHeaders.append('Authorization', 'token ' + oauth_token);
       myHeaders.append('Accept', 'application/vnd.github.v3+json');
 
       var myInit = { method: 'GET',
