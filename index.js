@@ -125,7 +125,7 @@ var app = new Vue({
               console.log("remove : " + title)
               delete this.commitsList[title]
               // sinon pas moyen de le faire rafraichir
-              //this.$forceUpdate();
+              this.$forceUpdate();
             }
             
           }else{
@@ -167,7 +167,6 @@ var app = new Vue({
         alert("Token non sauvegarder.")
       }
       this.display_removeToken = !this.isToken
-      this.$forceUpdate();
     }
   },
   computed: {
