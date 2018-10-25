@@ -167,7 +167,7 @@ var app = new Vue({
         alert("Token non sauvegarder.")
       }
       this.display_removeToken = !this.isToken
-      //this.$forceUpdate();
+      this.$forceUpdate();
     }
   },
   computed: {
