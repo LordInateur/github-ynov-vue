@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>EzForm</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  </head>
+  <body>
+
+
+    <div id="app">
+      <!-- 
+      <h1> {{ voiture.marque + " " + voiture.modele + " ( " + voiture.annee + " )" }}</h1>
+
+      <form >
+        <div><label>Marque : </label><input type="" name="marque" v-model="form.marque"></div>
+        <div><label>Modele : </label><input type="" name="modele" v-model="form.modele"></div>
+        <div><label>Annee : </label><input type="" name="annee" v-model="form.annee"></div>
+      </form>
+      
+      <div> {{ form.marque + " " + form.modele + " ( " + form.annee + " )" }} </div>
+      -->
+      
+      <h1>Application : </h1>
+      <div><label>Min date : </label> <input type="date" name="" v-model="date.min"> <span> {{date.min}} </span></div>
+      <div><label>Max date : </label> <input type="date" name="" v-model="date.max"> <span> {{date.min}} </span></div>
+      <div><label>loadjson : </label> <textarea id="enfer" class="" style="height: 2em; width: 30em; vertical-align: top;">{{this.$data}}</textarea> <input type="button" name="" value="load Json" v-on:click="setData(document().getElementById('enfer').value)"></div>
+      
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div v-for="user in gitusers">
+              <input type="checkbox" name="userSelected" v-model="userSelected" :value="user.pseudo" :id="user.pseudo" v-on:change="console().log(userSelected)">
+              {{user.pseudo}}
+              <div class="container">
+                <div v-for="repo in user.repos" v-if="userSelected.indexOf(user.pseudo) >= 0">
+                  <input type="checkbox" name="user.repoSelected" v-model="user.repoSelected" :value="repo" :id="repo" v-on:change="console().log(getRepoData(user.pseudo, repo))">
+                  {{repo}}
+                </div>
+              </div>
+             
+            </div>
+          </div>
+
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-12" v-for="repo in getCommitsList">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" style="height: 2em" v-if="repo.loading"> 
+                <h2>{{ repo.title }} </h2>
+                <div class="row" v-if="!repo.loading">
+                  <div class="col-12" v-for="commit in repo.commits">
+                    <div class="row">
+                      <span class="col-2 d-none d-md-block">{{ commit.author.login }}</span>
+                      <span class="col-7">{{ commit.commit.message }}</span>
+                      <span class="col-3">{{ commit.commit.author.date }}</span>
+                    </div>
+        
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>  
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <!-- Vue.js -->
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- production version, optimized for size and speed -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+
+</html>
