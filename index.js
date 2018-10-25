@@ -8,8 +8,11 @@ var app = new Vue({
     //
     this.updateToken()
   },
-  updated: function(){
+  beforeUpdate: function(){
     this.listOfRepo()
+  },
+  update: function(){
+
   },
   destroyed: function(){
 
@@ -44,7 +47,7 @@ var app = new Vue({
       {pseudo : "alixnzt", repos : ["github-ynov-vue"], repoSelected:[]},
     ],
     userSelected : ["LordInateur"],
-    commitsList : {},
+    commitsList : {/*"LordInateur/github-ynov-vuz":{"title":"LordInateur/github-ynov-vue","loading":true,"commits":[]}*/},
     display_removeToken : false,
     oauth_token : "initialisation"
   },
@@ -55,8 +58,10 @@ var app = new Vue({
     document : function(){
       return document;
     },
+    sessionStorage : function(){
+      return window.sessionStorage
+    },
     getRepoData : function ( user, repo){
-      // lordToken : 2de59a91c8a5f7df2bdcd7-d31c485508878ec4c9
 
       if(this.oauth_token != undefined && this.oauth_token.length == 40){
  
@@ -93,14 +98,12 @@ var app = new Vue({
         
       }else if(this.oauth_token != "initialisation"){
         alert("Probleme sur le token de connexion")
-        this.localStorage.removeItem('oauth_token')
+        this.sessionStorage().removeItem('oauth_token')
       } else {
         console.log("Probleme sur le token de connexion")
-        this.localStorage.removeItem('oauth_token')
+        this.sessionStorage().removeItem('oauth_token')
       }
-      
-
-      
+            
     },
     getData(){
       let tmpData = JSON.parse(JSON.stringify(this.$data))
@@ -110,15 +113,21 @@ var app = new Vue({
     setData(data){
       Object.assign(this.$data, JSON.parse(data))
     },
+
     listOfRepo : function(){
       return this.gitusers.reduce((acc, user)=>{
         //console.log(user.repoSelected)
         for ( i_repo in user.repos){
-          let title = `${user.pseudo}/${user.repos[i_repo]}`;
+          let title = `${user.pseudo}/${user.repos[i_repo]}`;      
+
           if(user.repoSelected.indexOf(user.repos[i_repo]) < 0 ){
-            //this.commitsList.splice(user.repoSelected.indexOf(user.repos[i_repo]),1)
-            console.log("remove : " + title)
-            delete this.commitsList[title]
+            if(this.commitsList[title] != undefined){
+              console.log("remove : " + title)
+              delete this.commitsList[title]
+              // sinon pas moyen de le faire rafraichir
+              this.$forceUpdate();
+            }
+            
           }else{
             acc.push(`${user.pseudo}/${user.repoSelected[i_repo]}`)
             if(this.commitsList[title] == undefined){
@@ -127,41 +136,35 @@ var app = new Vue({
             }
 
           }
+
         }
-        //console.log(this.commitsList)
+        
         return acc
       }, [])
     },
     removeToken : function(){
-      this.localStorage.removeItem('oauth_token')
+      this.sessionStorage().removeItem('oauth_token')
       this.oauth_token = "Removed"
       this.display_removeToken = false
     },
     updateToken : function(){
       try {
-        this.oauth_token = localStorage.getItem('oauth_token');
+        this.oauth_token = this.sessionStorage().getItem('oauth_token');
         console.log(this.oauth_token)
         while(this.oauth_token == null || this.oauth_token == undefined || this.oauth_token.length != 40){
           
           this.oauth_token = prompt("Veuillez saisir votre token de connexion git", "")
           
         }
-        
-        console.log("Chargement du token effectue")
+        this.sessionStorage().setItem('oauth_token', this.oauth_token)
+        console.log("token -" + this.sessionStorage().getItem('oauth_token') + "- save in sessionStorage")
         console.log(this.oauth_token)
-       
-        this.localStorage.setItem('oauth_token', this.oauth_token)
-        console.log("token -" + this.localStorage.getItem('oauth_token') + "- save in localStorage")
-
       } catch (e) {
-        alert("Autoriser les cookies pour sauvegarder le token d'authentification")
-        try {
+        alert("Autoriser les cookies pour sauvegarder le token d'authentification sur la prochaine saisie")
+        while(this.oauth_token == null || this.oauth_token == undefined || this.oauth_token.length != 40){
           this.oauth_token = prompt("Veuillez saisir votre token de connexion git", "")
-          this.localStorage.setItem('oauth_token', oauth_token)
-        } catch (e){
-          this.oauth_token = prompt("Veuillez saisir votre token de connexion git", "")
-          alert("Token non sauvegarder.")
         }
+        alert("Token non sauvegarder.")
       }
       this.display_removeToken = !this.isToken
       //this.$forceUpdate();
@@ -169,16 +172,18 @@ var app = new Vue({
   },
   computed: {
     isToken : function(){
-
       try {
-        this.display_removeToken = this.localStorage.getItem('oauth_token').length == 40
+        this.display_removeToken = this.sessionStorage().getItem('oauth_token').length == 40
       }catch (e){
         this.display_removeToken = false;
       }
       return this.display_removeToken;
     },
-    localStorage : function(){
-      return window.localStorage
+    computedCommitsList : function(){
+      return this.commitsList
     }
+  },
+  watch:{
+    commitsList(){console.log("commitsList have change")}
   }
 })
