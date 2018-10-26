@@ -27,7 +27,7 @@ var app = new Vue({
       {pseudo : "LordInateur", repos : ["github-ynov-vue","gta-ynov-vue","SHI-FU-MI-clicker"], repoSelected:["github-ynov-vue"]},
       {pseudo : "benjaminbra", repos : ["github-ynov-vue","gta-ynov-vue"], repoSelected:[]},
       {pseudo : "Nair0fl", repos : ["github-ynov-vue","gta-ynov-vue"], repoSelected:[]},
-      {pseudo : "mathiasLoiret", repos : ["github-ynov-vue","gta-ynov-vue"], repoSelected:[]},
+      {pseudo : "mathiasLoiret", repos : ["github-ynov-vue","gta-ynov-vue"], repoSelected:["github-ynov-vue"]},
       {pseudo : "thomaspich", repos : ["github-ynov-vue","gta-ynov-vue"], repoSelected:[]},
       {pseudo : "TeofiloJ", repos : ["github-ynov-vue","gta-ynov-vue"], repoSelected:[]},
       {pseudo : "Grigusky", repos : ["github-ynov-vue","gta-ynov-vue"], repoSelected:[]},
@@ -47,7 +47,7 @@ var app = new Vue({
       {pseudo : "Killy85", repos : ["github-ynov-vue","gta-ynov-vue"], repoSelected:[]},
       {pseudo : "alixnzt", repos : ["github-ynov-vue","gta-ynov-vue"], repoSelected:[]}
     ],
-    userSelected : ["LordInateur"],
+    userSelected : ["LordInateur", "mathiasLoiret"],
     commitsList : {/*"LordInateur/github-ynov-vuz":{"title":"LordInateur/github-ynov-vue","loading":true,"commits":[]}*/},
     display_removeToken : false,
     oauth_token : "initialisation"
