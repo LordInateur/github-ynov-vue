@@ -43,7 +43,7 @@
               {{user.pseudo}}
               <div class="container">
                 <div v-for="repo in user.repos" v-if="userSelected.indexOf(user.pseudo) >= 0">
-                  <input type="checkbox" name="user.repoSelected" v-model="user.repoSelected" :value="repo" :id="repo" v-on:change="console().log(getRepoData(user.pseudo, repo))">
+                  <input type="checkbox" name="user.repoSelected" v-model="user.repoSelected" :value="repo" :id="repo" v-on:change="listOfRepo()">
                   {{repo}}
                 </div>
               </div>

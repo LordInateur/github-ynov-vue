@@ -7,9 +7,10 @@ var app = new Vue({
   mounted: function(){
     //
     this.updateToken()
+    this.listOfRepo()
   },
   beforeUpdate: function(){
-    this.listOfRepo()
+    
   },
   update: function(){
 
@@ -63,7 +64,7 @@ var app = new Vue({
     },
     getRepoData : function ( user, repo){
 
-      if(this.oauth_token != undefined && this.oauth_token.length == 40){
+      if(this.oauth_token != undefined && this.oauth_token.length == 40 && repo != undefined){
  
         var myImage = document.querySelector('img');
 
@@ -96,12 +97,14 @@ var app = new Vue({
           return error
         })
         
-      }else if(this.oauth_token != "initialisation"){
+      }else if(!(this.oauth_token != "initialisation" && repo != undefined || repo == undefined )){
+        console.log(repo)
+        console.log(this.oauth_token)
         alert("Probleme sur le token de connexion")
-        this.sessionStorage().removeItem('oauth_token')
+        // this.removeToken()
       } else {
         console.log("Probleme sur le token de connexion")
-        this.sessionStorage().removeItem('oauth_token')
+        // this.removeToken()
       }
             
     },
@@ -125,7 +128,7 @@ var app = new Vue({
               console.log("remove : " + title)
               delete this.commitsList[title]
               // sinon pas moyen de le faire rafraichir
-              this.$forceUpdate();
+              // this.$forceUpdate();
             }
             
           }else{
@@ -179,4 +182,6 @@ var app = new Vue({
       return this.display_removeToken;
     }
   }
+
+  // add watch deep
 })
