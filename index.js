@@ -64,6 +64,8 @@ var app = new Vue({
     },
     getRepoData : function ( user, repo){
 
+      console.log(this.oauth_token)
+      console.log(repo)
       if(this.oauth_token != undefined && this.oauth_token.length == 40 && repo != undefined){
  
         var myImage = document.querySelector('img');
@@ -97,9 +99,7 @@ var app = new Vue({
           return error
         })
         
-      }else if(!(this.oauth_token != "initialisation" && repo != undefined || repo == undefined )){
-        console.log(repo)
-        console.log(this.oauth_token)
+      }else if(!((this.oauth_token != "initialisation" && repo != undefined) || repo == undefined )){
         alert("Probleme sur le token de connexion")
         // this.removeToken()
       } else {
@@ -132,10 +132,10 @@ var app = new Vue({
             }
             
           }else{
-            acc.push(`${user.pseudo}/${user.repoSelected[i_repo]}`)
+            acc.push(title)
             if(this.commitsList[title] == undefined){
               this.commitsList[title] = { 'title': title, loading : true }
-              this.getRepoData(user.pseudo, user.repoSelected[i_repo])
+              this.getRepoData(user.pseudo, user.repos[i_repo])
             }
 
           }

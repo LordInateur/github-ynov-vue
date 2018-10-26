@@ -53,8 +53,8 @@
           <div class="col-md-9">
             <div class="row">
               <div class="col-12" v-for="repo in this.commitsList">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" style="height: 2em" v-if="repo.loading"> 
-                <h2>{{ repo.title }} </h2>
+                
+                <h2><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" style="height: 2em" v-if="repo.loading"/>  {{ repo.title }} </h2>
                 <div class="row" v-if="!repo.loading">
                   <div class="col-12" v-for="commit in repo.commits" v-if="date.min<commit.commit.author.date && commit.commit.author.date.slice(0,10)<=(date.max +1)">
                     <div class="row">
