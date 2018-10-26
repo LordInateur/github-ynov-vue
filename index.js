@@ -20,7 +20,7 @@ var app = new Vue({
   },
   data: {
     date: {
-      min : new Date(new Date().setTime(new Date().getTime() - (15 * 24 * 60 * 60 * 1000))).toJSON().slice(0,10), 
+      min : new Date(new Date().setTime(new Date().getTime() - (3 * 24 * 60 * 60 * 1000))).toJSON().slice(0,10), 
       max : new Date().toJSON().slice(0,10)
     },
     gitusers : [
